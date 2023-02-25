@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Painter</title>
+</head>
+
+<body>
+    <h2>Painter entry Purna Chandra Satish Pinnamani</h2>
+
+    <form>
+        <label for="form1_pw">The hidden Painter name :</label>
+        <input type="password" id="form1_pw" name="form1_pw" value="Monet"> <br>
+
+        <label for="form1_guesspainter">Guess the painter </label>
+        <input type="text" id="form1_guesspainter" name="form1_guesspainter" autofocus> <br>
+
+        <input type="button" onclick="checkPainter()" value="Check the guess">
+    </form>
+
+    <p id="result">The guess count will be displayed here</p>
+
+    <script>
+        good = 0
+        oops = 0
+        function checkPainter() {
+            console.log("Getting form values")
+            password = document.getElementById("form1_pw").value
+            guess = document.getElementById("form1_guesspainter").value
+
+            result = document.getElementById("result")
+            if (password == guess) {
+                good++;
+                alert("You got it right");
+                result.innerHTML = " Correct answer guess count: " + good + " Wrong answer guess count: " + oops;
+            } else {
+                oops++
+                alert("Sorry");
+                result.innerHTML = "Correct answer guess count: " + good + " Wrong answer guess count: " + oops;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
