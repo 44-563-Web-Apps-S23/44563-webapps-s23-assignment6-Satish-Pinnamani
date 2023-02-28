@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Conversions</title>
+</head>
+
+<body>
+    <h1>Purna Chandra Satish Pinnamani shows currency conversions</h1>
+    <h2>Getting input</h2>
+
+    <form>
+        <label for="form1_base_amount">Enter base amount</label>
+        <input type="number" id="form1_base_amount" name="form1_base_amount" value=50> <br>
+
+        <label for="form1_conversion_rate">Enter the conversion rate.</label>
+        <input type="number" id="form1_conversion_rate" name="form1_conversion_rate" value=35> <br>
+
+        <input type="button" onclick="convert()" value="Show conversions ">
+    </form>
+
+
+    <p id="result">value is converted value</p>
+
+    <script>
+
+        function convert() {
+
+            base_amount = document.getElementById("form1_base_amount").value
+            conversion_rate = document.getElementById("form1_conversion_rate").value
+            toShow = ""
+            for (i = 1; i <= 5; i++) {
+                toShow = base_amount + " is " + Math.round(conversion_rate * base_amount * 100) / 100 + "; " +
+                    base_amount * 2 + " is " + Math.round(conversion_rate * base_amount * 2 * 100) / 100 + "; " +
+                    base_amount * 4 + " is " + Math.round(conversion_rate * base_amount * 4 * 100) / 100 + "; " +
+                    base_amount * 8 + " is " + Math.round(conversion_rate * base_amount * 8 * 100) / 100 + "; " +
+                    base_amount * 16 + " is " + Math.round(conversion_rate * base_amount * 16 * 100) / 100 + "; "
+            }
+            out = document.getElementById("result")
+            if (toShow) {
+                out.innerHTML = "Conversions are: " + toShow
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
