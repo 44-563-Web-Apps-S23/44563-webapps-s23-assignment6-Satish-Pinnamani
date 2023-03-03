@@ -1,47 +1,119 @@
 <!DOCTYPE html>
 <html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
 <head>
-    <title>Conversions</title>
+    <title>Conversions by Pinnamani</title>
 </head>
 
 <body>
-    <h1>Purna Chandra Satish Pinnamani shows currency conversions</h1>
-    <h2>Getting input</h2>
 
-    <form>
-        <label for="form1_base_amount">Enter base amount</label>
-        <input type="number" id="form1_base_amount" name="form1_base_amount" value=50> <br>
+    <div class="container">
+        <h2>Purna Chandra Satish Pinnamani shows currency conversions</h2>
+        <form>
+            <div class="form-group">
+                <label for="form_base_amount">Enter base amount </label>
+                <input type="number" id="form_base_amount" name="form_base_amount" value=50>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="form_conversion_rate">Enter the conversion rate</label>
+                <input type="number" id="form_conversion_rate" name="form_conversion_rate" value=35> <br>
+            </div>
+            <br>
+            <div>
+                <button type="button" id="convert-btn">Show conversions</button>
+            </div>
+        </form>
 
-        <label for="form1_conversion_rate">Enter the conversion rate.</label>
-        <input type="number" id="form1_conversion_rate" name="form1_conversion_rate" value=35> <br>
-
-        <input type="button" onclick="convert()" value="Show conversions ">
-    </form>
 
 
-    <p id="result">value is converted value</p>
+        <p id="result">value is converted value </p>
 
+    </div>
     <script>
+        const baseAmountInput = document.getElementById("form_base_amount")
+        const rateInput = document.getElementById("form_conversion_rate")
+        const convertBtn = document.getElementById("convert-btn")
+        const resultElement = document.getElementById("result")
 
-        function convert() {
+        function calculateConversion(baseAmount, rate) {
+            return baseAmount * rate
+        }
 
-            base_amount = document.getElementById("form1_base_amount").value
-            conversion_rate = document.getElementById("form1_conversion_rate").value
-            toShow = ""
-            for (i = 1; i <= 5; i++) {
-                toShow = base_amount + " is " + Math.round(conversion_rate * base_amount * 100) / 100 + "; " +
-                    base_amount * 2 + " is " + Math.round(conversion_rate * base_amount * 2 * 100) / 100 + "; " +
-                    base_amount * 4 + " is " + Math.round(conversion_rate * base_amount * 4 * 100) / 100 + "; " +
-                    base_amount * 8 + " is " + Math.round(conversion_rate * base_amount * 8 * 100) / 100 + "; " +
-                    base_amount * 16 + " is " + Math.round(conversion_rate * base_amount * 16 * 100) / 100 + "; "
+        function showConversions() {
+            const baseAmount = parseFloat(baseAmountInput.value)
+            const rate = parseFloat(rateInput.value)
+            let toShow = ""
+
+            for (let i = 1; i <= 5; i++) {
+                const amount = baseAmount * Math.pow(2, i - 1)
+                const conversion = calculateConversion(amount, rate)
+                toShow += `${amount} is ${conversion}; `
             }
-            out = document.getElementById("result")
+
             if (toShow) {
-                out.innerHTML = "Conversions are: " + toShow
+                resultElement.textContent = `Conversions are: ${toShow}`
             }
         }
 
+        convertBtn.addEventListener("click", showConversions)
+    </script>
+
+    <div class="container">
+        <form>
+            <div class="form-group"><label>
+                    <input type="radio" name="operation" value="Average" onClick="chooseOp()"> Average
+                </label></div>
+            <div class="form-group"><label>
+                    <input type="radio" name="operation" value="Maximum" onClick="chooseOp()"> Max
+                </label></div>
+            <div class="form-group"><label>
+                    <input type="radio" name="operation" value="Minimum" onClick="chooseOp()"> Min
+                </label></div>
+
+        </form>
+
+        <p id="resultt">The radio buttons result will be diplayed here</p>
+
+    </div>
+
+    <script>
+        function chooseOp() {
+            const base_amount = parseFloat(document.getElementById("form_base_amount").value);
+            const conversion_rate = parseFloat(document.getElementById("form_conversion_rate").value);
+            const operation = document.querySelector('input[name="operation"]:checked').value;
+
+            out = document.getElementById("resultt")
+            let resultt;
+            switch (operation) {
+                case "Average":
+                    resultt = (base_amount + conversion_rate) / 2
+                    out.innerHTML = "Average of " + base_amount + " and " + conversion_rate + " is " + resultt
+                    break;
+                case "Maximum":
+                    if (base_amount > conversion_rate)
+                        resultt = base_amount
+                    else
+                        resultt = conversion_rate
+
+                    out.innerHTML = "Max of " + base_amount + " and " + conversion_rate + " is " + resultt
+                    break;
+                case "Minimum":
+                    if (base_amount < conversion_rate)
+                        resultt = base_amount
+                    else
+                        resultt = conversion_rate
+
+                    out.innerHTML = "Min of " + base_amount + " and " + conversion_rate + " is " + resultt
+                    break;
+                default:
+                    resultt = "";
+            }
+
+            document.getElementById("resultt").innerHTML = `${operation} of ${base_amount} and ${conversion_rate} is ${resultt}`;
+        }
     </script>
 
 </body>
